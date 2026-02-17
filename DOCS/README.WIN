@@ -1,0 +1,44 @@
+Mpxplay v1.68 for Win32 (FFmpeg/console/text/unicode version)
+
+New:
+-FFmpeg demultiplexing and audio decoding
+-DVB playing (by a virtual drive trough FTP-connections)
+-DirectSound output (WDS) (primary driver)
+-Wave mapper output (WIN)
+
+Modifications (advantages/disadvantages between DOS and Win versions):
+-Win32 version uses Unicode strings (UTF8 inside) and displaying (not single/ansi characters)
+-Win32 version handles 64-bit (>2Gb) filesizes
+-multichannel playing at Directsound output (use -oc 6 or 8 to set multichannel output, else stereo is the default)
+-the program sets the console codepage to 437 (standard US ascii) by default, you can change this with -8ccp option (the console codepage setting has effect in fullscreen mode only)
+-KeyEditInsSng is disabled (removed gray-ins mapping), because winsux can't see difference between white and gray Ins (if numlock is off)
+-gray-ins is mapped to KeyEditSelSng2
+
+Missing features (and probably will be not implemented in the near future): 
+-LCD-display
+-COM/LPT controls (only UIR works (has win based routines too))
+
+Bugs (list of functions, which don't work properly under Windows):
+-the program doesn't work under Win9x (the minimum recommended client is Win2000 Pro)
+-you have to set file associations manually (Mpxplay cannot do this yet)
+-some keyboard buttons doesn't work (ctrl-'s'; and windows can't see the difference between the white and gray buttons, like: Ins, Del, Home, End, PgUp, PgDn)
+-some text search (update) functions may be case sensitive: like shift-F2 and F4
+-mouse doesn't work if Mpxplay starts from batch file, or after opening a dos-shell (ctrl-d)
+-ALT-F9 (change 25/50 lines) doesn't work (only resizes the playlist editor)
+-display handling/writing (and the complete program) is slower than at the DOS version, use -ff option at file conversions (-o -ff -xel)
+
+Recommended installation method:
+1. Put/copy mpxplay.exe and mpxplay.ini files in a directory, where you have write access (ie: c:\mpxplay)
+2. Create a desktop icon for Mpxplay (right click on the desktop -> New - > Shortcut -> Browse to c:\mpxplay\mpxplay.exe)
+3. Right click on the created icon -> Properities
+4. Shortcut page: you can add your required/extra command line options (like "-psu 27 -ob 24 -scc 3 -ipl") in the "Target" window after mpxplay.exe
+5. Font page: set the font to "Lucida Console" (size=18, non-bold)
+6. Layout page: set the "Screen buffer size" and "Window size" to Width=100 Height=50, disable the "Let system position window" option
+
+Recommended modifications in mpxplay.ini (my own settings):
+"SoundcardCfg=2"     to enable DirectSound hardware mixing for better quality
+"Outmode=34"         to enable Float32 output format for better quality
+"PlayListCntrl=4"    to open input (command line) file in its directory
+"StartupEnabled=27"  if you would like to start playing automatically at program (re)start
+
+See the other txts for more informations about Mpxplay.

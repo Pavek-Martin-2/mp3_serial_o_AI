@@ -1,0 +1,13 @@
+Mpxplay v1.68 final for Win32 console (FFmpeg version)
+
+Supported fileformats:
+All audio formats and containers by FFmpeg
+see https://ffmpeg.org/general.html#File-Formats
+
+for Windows 2000/XP/Vista/Win7/Win10/Win11 operating systems (console/text desktop)
+with DirectSound, WaveMapper and WAV-file outputs
+from PDSoft (Attila Padar, Hungary)
+
+Bug reports, suggestions, greetings, email:  mpxplay@hotmail.com
+
+Read TXT files and see mpxplay.ini for more informations.

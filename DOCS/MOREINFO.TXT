@@ -1,0 +1,304 @@
+MPXPLAY Audio Player v1.68 by PDSoft
+
+If You find a bug, first read the 'known bugs' section below, 
+if the bug isn't there, please write it to me with these informations:
+-your hardware (CPU,RAM,Soundcard)
+-your operating system (DOS,Win95/98,Win32)
+-your command line options (i.e. mpxplay.exe -bp -cf playlist.m3u)
+-mpxplay.ini modifications (relative to the default)
+-description (what did you do, and what did the program do, when you found it)
+ (i.e. keyboard operations)
+
+I never can test the program totally. Sometimes a modification causes a new bug.
+If a function doesn't work properly (but it worked in the previous version(s)),
+please write it to me...
+
+Known bugs and limits:
+- DOSLFN with Mpxplay can cause data loss or directory entry fault at file 
+  write/create and at copy/rename/move (commander functions and playlist save) !!!
+  Use DOSLFN for disk reading only! 
+  (I don't know yet where is the bug, but I assume it's in DOSLFN, because Mpxplay works properly under windows)
+
+- see FAQ.TXT for extender (DOS32A,DOS4G,PMODEW) bugs & limits
+- autodetection of filetypes:
+ - basically filetypes are checked/detected by file-extensions
+ - known (implemented) file-extensions are not autodetected (if check-by-extension fails)
+ - unknown file-extensions (in playlist or from command-line) are autodetected (by their contents)
+ - AAC files are not autodetected (with other file extensions)
+ - filetypes in DLLs (DTS,MOD) are not autodetected (missing feature)
+ - autodetection is disabled in commander mode
+ - you can enable the autodetection for known file-extensions and in commander mode by the ProgramCntrl+8 flag
+ - autodetection is simplier/shorter(/faster) (than normal check) at some stream-filetypes (MP2/MP3,MPG,OGG,TS),
+   this can cause parsing-failure at bad/incomplete files (use correct extensions at such files)
+- multi tabs (ctrl-t):
+ - works in dynamic playlist mode only (MaxFilenames=0)
+ - max number of tabs per side is 8 (display limit)
+ - using large playlist(s) on any tab can slow down some disk functions (file copy/move/del, id3-tag write)
+   (because they search for the modified files on all tabs to update dir/file/id3 informations)
+- Tag editing (F4): OGG VorbisComments longer than one packet (~4k) cannot be modified (eg. containing album cover picture)
+- AAC :
+ - time-length,bitrate,seeking-bar and some time-pos related functions (crossfade,soundlimit) 
+   are not correct at RAW and ADTS fileformats (but good at ADIF)
+   (the program doesn't (cannot) calculate correctly the time-length of the file)
+ - slow seeking in some cases (1st far forward jump)(slower at RAW and ADIF)
+ - RAW files initialized with fixed 48kHz (if no freq info in the bitstream neither), so the originally 32 and 44.1 khz files are played faster
+- MPC : 
+ - only Streamversion 7.0 and 7.1 are implemented/supported
+ - seeking problems (?) (sometimes the seeking can fail, and the playing stops or skips to the next song)
+- CDW : 
+ - doesn't work on every CD-ROMs (only on those, which can copy/ripp/grab audio tracks)
+ - the door open/close also doesn't work on every drives
+ - maybe the DOS version doesn't work under WIN95/98 (hardware dependant?)(it works with my DVD players (TEAC,Toshiba))
+ - program opens/reads one track only at once (cannot play and copy simultaneously)
+ - seeking bugs/fault with -bpn option (when the next file is opened/loaded)
+ - win32 (NT/XP): requires write access (or admin rights) on the drive
+ - win32/aspi (it's used under win9x only, so probably completely unsupported, will be removed): the drive letter (d:) may be reversed/exchanged at 2 or more drives (couldn't assign the drive letter(s) to the aspi device number(s) yet)
+- mixer:
+ - soundlimit (-sl) has no effect at the begin of files in the default -bp (interrupt decoder) mode, only in -bs,-bn,-bni,bn8 (interrupt decoder is disabled) modes
+- soundcard routines:
+ - if you play 48khz files with original SB16 card (which cannot play 48k) use '-of 44100' option
+ - maybe the soundcard IRQ works below 8 only (3-7) (set the IRQ to 5, then it will work) (SB16,SBpro,GUS)
+ - Win9x (DOS version): only SB16, SBpro and GUS work in background (because they use IRQ)(other cards work in active window only)
+- crossfade:
+ - holds/uses the freq of the first song at different freqs (you can set a constant/alternative freq with -of)
+ - doesn't give perfect result at some (lower) freq combinations (ie: 22khz->24khz)
+ - doesn't work in demo-mode (hi-scan)
+ - doesn't work at fullbuffer (-bl) or at large prebuffer (-bbn 500), at auto-pause (-pap/ctrl-p) and pause-next (ctrl-s) functions
+ - increased volume + limiter = non-linear fade-out and fade-in
+- Win9x (DOS version):
+ - lfn getcwd function (int21h,ax=7147) doesn't work properly -> causes bugs in directory browser (it's good with DOSLFN)
+ - possible dir-scan problems on substed drives (directory browser and -ds)
+- sort function (-io or ctrl-F1-F4):
+ - some of the keys are unavailable in some cases, ie: filesize and filedate don't exist at loading standard playlists (M3U,PLS,etc.), 
+   only at drive/directory scan (d:\*.*\*.*) or Mpxplay saved CUE files (with REM MPXPINFO FIDA,FISI infos)
+ - doesn't work properly with -ipl/-idl/-ihl/-is functions (similar problem than previous)
+- DOS: 
+ - filesize limit is 2GB
+ - text handling (string compare) functions are case sensitive at international (non-US) chars
+  (in the Win32/unicode version only the shift-F2 and alt-'+' functions are case sensitive at non-US chars)
+- FTP: 
+ - id3tag editing doesn't work (you cannot modify a file with ftp commands)
+ - some session settings (the switches in sess manager) don't work if session is restored by startup (by mpxtabs.ini) (only -drfc option has effect in this case)
+- possible random mode bugs (with crossfade)
+- possible timing problems using -bn8 (mouse,joy,?)
+- seeking is not exact on most VBR stream-filetypes (MP3,OGG,FLAC,MPG,TS) and may be buggy on older APE files (v<=3.92)
+- Mpxplay cannot play very short files in some cases (shorter than 0.5 sec)(shorten than the DMA buffer)
+- the spectrum analyser works properly on 44khz/stereo files only
+
+- minimum playback freq: 512Hz (max is 4Ghz, but maybe the speed of your HD/CPU is not enough to play a more than 10 Mhz wav file)
+- Maximum number of playlist entries:
+  - Dynamic playlist handling (MaxFilenames=0 setting in mpxplay.ini) is used by default (playlist is limited by the memory only)
+  - A Maxfilenames>0 value pre-allocates a static playlist memory.
+   - in DOS version with MaxFilenames=9999:
+     in normal mode: 1999 (left side,directory browser), 9999 (right side,playlist)
+     in doombox mode: 9999 (left side/playlist), 1999 (right side/doombox queue)
+     (max. playlist size: 64*9999 = 640 kbyte)(640k for filenames, 640k for id3-infos)
+   - Win32 version with MaxFilenames=19999: 80*19999 = 1600k for filenames and 1600k for id3-infos on both sides
+- mpxplay.ini : max filesize=256kbytes; max number of lines=768; max chars per line is 512 in DOS, 1024 in Win32/unicode version
+- startup:
+ -CMOS (+4): only the fastlist number (on 3 bits: max 7 fastlists), the song (playlist entry) number (on 14 bits: max 16383 entries) and the file position (% on 7 bits) are saved/restored
+  (if no fastlist are configured in mpxplay.ini, then the song number is saved on 17 bits (for max. 131071 playlist entries))
+- the SBpro compatible cards: 
+  - sound with 8 bits & 22khz only (bad quality)
+  - use more CPU (freq conversion 44->22khz)
+
+-------------------------------------------------------------------------------
+Other informations:
+
+-PLAYLIST usage:
+ -you can create a playlist:
+  - under DOS with the  DIR /B/ON *.MP3 > PLAYLIST.M3U  command
+  - with Mpxplay:
+    MPXPLAY.EXE d:\*.*\*.* -@s playlist.m3u
+    MPXPLAY.EXE -ds c -@s playlist.m3u
+    MPXPLAY.EXE -ds c -@s playlist.m3u *.mp3  (create playlist from C drive with MP3 files only)
+    MPXPLAY.EXE -ds c -irl -@sw playlist.m3u  (to store/save file infos (artist,title,time) in the M3U)
+  -inside Mpxplay: with the F2 key
+
+ -MXU (extended playlist / file database):
+
+  -create: MPXPLAY.EXE -irl -@sx EXTLIST.MXU PLAYLIST.M3U
+       or: MPXPLAY.EXE -irl -@sx EXTLIST.MXU d:\*.*\*.*
+
+  -use (load): MPXPLAY.EXE EXTLIST.MXU                 (used like a playlist)
+           or: MPXPLAY.EXE -ig EXTLIST.MXU d:\*.*\*.*  (used to load file infos faster)
+           or: MPXPLAY.EXE -ig EXTLIST.MXU             (without input file(s) -> for faster directory browsing)
+
+  - You can use sub-list(s) in MXU on this way:
+    (you have to write these lines manually into the mxu list, the separator char is '|' (pipe))
+   -M3U sub-list:
+     D:\AUDIOMP3\PLAYLIST.M3U||[sub-list]|00000000
+   -MXU sub-list:
+     D:\AUDIOMP3\PLAYLIST.MXU||[sub-list]|00000000
+
+ -subdir scan examples:
+  D:\*.*\*.*        : load all supported (audio) files from the D drive
+  D:\ABC*.*\*.*\*.* : load files from ABC*.* subdirs and from their subdirs
+  D:\ABCD\*.*\*.*   : load files from ABCD dir and from its subdirs
+  D:\?*.*\*.*   : load files from the first subdirectory level only (don't load root and don't scan deeper subdirectories)
+  D:\ABC*.*\*.* : load files from ABC*.* subdirs only
+  *.*           : load files from the current directory only
+  *.MP3         : load MP3 files from the current directory
+
+-ID3-TAG write/update in ASF,FLAC,MP4,OGG; AAC/AC3/APE/MP2/MP3/MPC (ID3v1.0,v1.1, ID3v2.3,v2.4, APEv2-tag)
+ Tag editing in playlist editor (F4 key):
+ -You can edit the tag of a single file, or a group of files (selected by Ins).
+ -At group editing the program collects and displays the common tag informations (but usually this works in directory only)
+ -Some dynamic-length metadata formats (ID3v2,ASF,FLAC,MP4,OGG) requires a padding
+  field to extend the metadata infos. If this padding is not exist or too small,
+  we have the following possibilities (the program gives these in a window):
+  1. We duplicate the file adding all (new and old) informations to the new file. (write to a tmp file, rename at the end)
+     The program also adds a padding field to the file, so usually no need
+     to duplicate it again.
+  2. We drop some tags from the metadata field (primary the unknown tags, which are not required
+     for Mpxplay nor for audio playing, just gives extra informations to some players)
+  3. MP4 format gives an extra option: we move the header infos (the complete MOOV atom, inc. META atom)
+     to the end of file and we write all metadata infos there.
+
+ Tag editing from command line:
+ -you can use -iw with -it options (-ita,-itt, etc.) (see readme.txt)
+
+ -or you can use a listfile on this way:
+
+  make a text file in this form (write artist:title after every filenames)(don't write spaces in the filenames):
+
+  filenam1.MP3 artist1:title1
+  filenam2.MP3 artist2:title2
+  filenam3.MP3 artist3:title3
+
+  Name it to !FILES and run my program with these options:
+
+  MPXPLAY.EXE -iw -ig !FILES playlist.m3u
+  or
+  MPXPLAY.EXE -iw -ig !FILES *.*
+
+  and the program will write this ID3 info(s) into the audio files.
+
+  (the listfile (!FILES) is same like an m3u file, but with artist & title)
+
+  examples:
+  mpxplay.exe -iw -ig !FILES -itl "80's collection" -itc "encoded by myself" playlist.m3u   (you can use -ig and -it options together)
+  mpxplay.exe -iw -ita "Name of the artist" -ity "2004" *.mp3              (modify/write artist and year tags in all MP3 files)
+  mpxplay.exe -iw -itl "New album name" -itc "" track04.ape track11.ape   (modify the album and clear the comment in the track04.ape and track11.ape files)
+
+
+-FRAMES: Mpxplay handles the files in frames. 1 frame is usually 4608 pcm bytes (1152*channels*2)
+	 (1 sec = ca. 38 frames at 44.1kHz)(depends on the freq of file too)
+
+-CD-WAV (CDW) : the cd-wav function is not a simple audio CD player, this is
+ a real time Digital Audio Copy (it reads the cda sectors and writes them to
+ the sound card), because of this you can use crossfade, speed control,
+ auto volume correction and surround on audio CDs and you can copy the
+ audio tracks to the hd (with ALT-F5). 
+ (note: parallel play and copy from the same disk can be very slow or bad)
+
+-USING MPXPLAY 
+ - WITHOUT HARDDISK: I haven't tested it, try -db option
+ - WITHOUT VGA CARD: I also haven't tested it, try -f0 option
+
+-LESS CPU USAGE: the program uses less cpu time without spectrum analyser,
+ volume correction, surround, soundlimit and volume meter.
+ Use this for slow CPUs: mpxplay.exe -sl 0 -ddma -f0 -v -bl -bn8 playlist.m3u
+ OR: mpxplay.exe -sl 0 -ddma -bl -bn8 playlist.m3u
+  and set in mpxplay.ini: Displaymode=76 or Displaymode=92 and Desktopmode=1018
+
+-SOUNDLIMIT: cuts (don't write to the output) the signal below
+ "soundlimit" it doesn't play (only decode) while, and it finishes the play
+ (exit or step to next song in playlist) in last 400 frame when volume is
+ bellow or equal to soundlimit.
+ Set it to 50 for disco, 10 for classical music, 1 to cut at 'digital noise'
+ and 0 to disable soundlimit checking.
+
+-VERBOSE: in verbose mode (-v) you get more informations (header info:layer,bitrate,etc.,
+ ,ID3tag info:artist,title,year,...)(use it for -f0,-ff or -fl options)
+
+-TEST MODE: in test mode (-t) the program writes the output to nowhere (null output)
+ and you can test the speed of your computer and my program.
+ You get the results at the end of running.
+ Index value must be above 100% to play properly audio (MP3) files.
+
+-PROGRAMCNTRL configuration in mpxplay.ini (default: DOS:0 Win:16):
+ 0.   +1  confirm exit (-xce)
+ 1.   +2  machine shutdown at exit (-xas)
+ 2.   +4  reserved
+ 3.   +8  always try to autodetect the filetype (usefull in commander mode and if file-extension and file-type don't match)
+ 4.  +16  win:open unknown (like jpg,pdf,doc) file types with default (external) system application (enabled by default)
+ 5.  +32  win:open all files with default system application (inside A/V playing still can be controlled with ctrl-enter and skip keys)
+
+-PLAYLISTCNTRL configuration in mpxplay.ini (default: 0):
+ 0.   +1  disable playlist warnings (only "non-standard CUE" yet)
+ 1.   +2  eq to -db option (disable left side)
+ 2.   +4  eq to -db2 option (use dir browser on both sides and load playlist as sublist from commandline)
+ 3.   +8  eq to -il option (use local id3-list for file id3-infos)
+ 4.  +16  non-filtered playlist search at alt-letter (the older method)
+
+-SORTCONTROL configuration in mpxplay.ini (default: 0):
+ 0.   +1  use descending order on all tabs
+ 1.   +2  sort directories and playlists too (by filedate or filename) (else always by filename in ascending order)
+ 2.   +4  disable auto descending (for len,size,filedate columns) (else switching to sort by len/size/date initialized in descending order)
+ 3.   +8  don't keep playlist on the top of the directory at sort
+
+-MIXERCONTROL configuration in mpxplay.ini (default: 1)
+ 0.   +1  enable sound limiter (fast volume reduction)
+ 1.   +2  allways use soft-tone (disable DOS hw soundcard tone controls)
+ 2.   +4  0.1% speed control (550-1000-9999) (instead of 1%)
+ 3.   +8  reserved
+ 4.  +16  disable decoder (MPx) tone (use always the au_mixer tone control)
+ 5.  +32  disable au_mixer tone (use tone control at MPx files only)
+
+-DISPLAYMODE configuration in mpxplay.ini:
+ (default: 126 = 64+32+16+8+4+2; -fl: 2; -fl -v: 6=2+4; -fe -fs : 14=8+4+2)
+       0  no display (-f0)
+ 0.   +1  display only a frame counter (use it with -f0 (0) & -v (+4) only)
+ 1.   +2  display timepos line
+ 2.   +4  display id3info & header lines (-v)
+ 3.   +8  use fullscreen (else display 1-3 lines only)
+ 4.  +16  use half screen playlist-editor with spectrum analyser and buttons (else fullscreen editor with timepos,id3info,header lines)
+ 5.  +32  enable spectrum analyser
+ 6.  +64  use (change display to) 50 lines mode (else use the initial (DOS) resolution)
+ 7. +128  use DesktopModeC (else P)
+
+-DESKTOPMODE(P,C) configuration (default: 507=1+2+8+16+32+64+128+256 and 656511=1+2+4+8+16+32+64+1024+131072+524288):
+ 0.     +1  show song position line (....)
+ 1.     +2  show playlist position line (....)
+ 2.     +4  show all filenames in directory browser (not only supported audio/container)
+ 3.     +8  show playlist editor elevator ()
+ 4.    +16  vertical editor sides (else horizontal)
+ 5.    +32  show filename with fullpath at the top of the editor (automatically disabled at multiply tabs)
+ 6.    +64  show fulltime (in bottom right corner)
+ 7.   +128  show songtimes in editor
+ 8.   +256  show songnumbers in editor
+ 9.   +512  show drive letters in editor
+10.  +1024  show filenames in editor instead of artist:title
+11.  +2048  follow browser (via mouse) in editor
+12.  +4096  shift playlist entry up or down by mouse (drag & move) (otherwise scroll editorside)
+13.  +8192  allways follow song-skip with the cursor/editorhighline (else follows only if it stands on the current/played song)
+14. +16384  disable "move side with editorhighline" function (set old editorhighline/side moving method)
+15. +32768  disable ID3-window artist-title scroll (album (2.) line never scrolls)
+16. +65536  always display tabs-header line/buttons in playlist editor
+17. +131072 align fields in editor (separate filename and extension or artist and title (commander/player))
+18. +262144 sign playlist to [playlist] (not [sub-list]) if other side is playlist-side (and enter key loads it to other side, starts playing immediately) (this was the default method before v1.56)
+19. +524288 display dates of directories in playlist editor
+(note: at some functions (like sort) the commander mode means that the 2., 10. and 19. bits are enabled together)
+
+-LOADID3TAG configuration (default: 39 = 1 + 2 + 4 + 32)
+0.  +1  use mxu/extm3u/id3list
+1.  +2  load tags from audio files
+2.  +4  create artist:title from (long)filename if no other id3info (enabled by default)
+  (detected filename formats are: "Artist - Album (YEAR)\NN. Artist - Title.XXX" or "Artist - NN - Title.XXX" (one or more of the items can missing)(NN is tracknumber))
+3.  +8  prefer list-tags (got from extm3u,mxu,id3list,filename) (else prefer audiofile-tags)
+4. +16  preload informations from slow devices too (ftp,http)
+5. +32  load ID3 tags from low level devices too (Icecast, http) (enabled by default)
+
+
+-available CPNAMEs (codepages) for -8ucp and -8ccp options (def. ISO-8859-2 and CP437):
+ ISO-8859-1,ISO-8859-2,ISO-8859-3 ,ISO-8859-4 ,ISO-8859-5 ,ISO-8859-6 ,ISO-8859-7,
+ ISO-8859-8,ISO-8859-9,ISO-8859-10,ISO-8859-13,ISO-8859-14,ISO-8859-15,ISO-8859-16,
+ CP424,CP437,CP720,CP737,CP775,CP850,CP852,CP855,CP856,CP857,CP858,
+ CP860,CP861,CP862,CP863,CP864,CP865,CP866,CP869,CP874,CP1006,
+ CP1250,CP1251,CP1252,CP1253,CP1254,CP1255,CP1256,CP1257,CP1258
+ partial support for CP932,CP936,CP949,CP950 (and maybe the graphical-desktop of Mpxplay also will be bad)
+
+-limiter function (MixerControl=1): is a fast auto volume reduction (if required)
+ after channel-downmix, crossfade, surround, tone-control or if SoundVolume>100
+ (usually the limiter function cannot work properly in LQ (HQmode=0) mixer mode)

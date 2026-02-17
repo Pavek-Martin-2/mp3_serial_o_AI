@@ -1,0 +1,156 @@
+Detailed list of the modifications (changelog) in the console versions
+
+diffs between v1.68 and v1.67
+-modifications/new:
+ -FFmpeg version (Win32): updated FFmpeg library from 6.0.0 to 8.0.0
+ -new options: -xef (exit after one file), -xet MIN (exit after MINutes timeout) and -xetf MIN (exit after MINutes timeout with slow fadeout) (control.c)
+ -WIN: added native (Windows based) SSL/TLS (https/ftps) communication, if OpenSSL DLLs cannot be loaded (missing) (tcpcommon.c)
+ -WIN: tcp (http/ftp low level) functions (ws2_32.dll) are loaded dynamically (only if used) (tcpcomon.c)
+ -WIN: dll load optimizations (mpr.dll is loaded dynamically, only if needed) (loaddir.c, drivehnd.c)
+ -DOS: Intel HDA: added new PCI ids (Intel, ATI, Zhaoxin, Loongson chips) (sc_inthd.c)
+ -FFmpeg: added handling of more (all possible) multi-channels (eg. bottom or top surround speakers), mapping to the nearest supported output channel (but the maximum number of input/output channels is still 11) (in_ffmpeg.c)
+ -email address has changed to mpxplay@hotmail.com, don't use mpxplay@freemail.hu anymore (old messages are also lost)
+-bugfixes/modifications:
+ -ctrl-'e': rename of directory (single entry only) (diskfile.c)
+ -ctrl-'e': rename and reopen of currently played file (diskfile.c)
+ -possible crash at all-elapsed time displaying mode (TimeMode=2) at calculating all-elapsed time (chkentry.c)
+ -ID3-search: can be terminated with a dialog open key (like F3 or alt-F5), opening the dialog window immediately (keyctrl.c)
+ -sorting (inserting into playlist) new (created) entries (eg. make dir, playlist save, stream copy) by filedate (if the order type of that tab is filedate) (editlist.c, sortlist.c)
+ -LFN to ID3 conversion (better track number / filename begining with number handling) (chkentry.c)
+ -possible crash (null ptr error) at index or DVB program change (mpxplay.c)
+ -ppa, xas and xce command line options became one-time switches (not overwriting permanent settings of PlayControl and ProgramCntrl in mpxplay.ini) (control.c)
+ -mpxplay.ini/PlayControl: removed one-time switches, use command line options (-ppn, -phs) instead (control.c)
+ -FFmpeg: corrected PCM_S16LE (WAV/CDW) audio playing (ffmpstrm.c)
+
+-----------------------------------------------------------------------------------
+diffs between v1.67 and v1.66
+-modifications/new:
+ -FFmpeg version (Win32): updated FFmpeg library from 4.4.0 to 6.0.0
+ -DOS: replaced PCI-Bios audio functions with direct PCI i/o port communication (some BIOSes have no correct PCI handling) (pcibios.c)
+ -DOS: Intel HDA: added -scc flag +4: use CORB (command ring buffer) with IRQ and Power-Up, instead of PIO mode (some chips have no PIO) (sc_inthd.c)
+ -DOS: Intel HDA: added new PCI ids (Intel RaptorLake chips) (sc_inthd.c)
+ -DOS: minor corrections in ICH and VIA soundchips handling (sc_ich.c, sc_via.c)
+-bugfixes/modifications/general:
+ -FFmpeg: handling (ignoring) of incorrect ID3 tags (like spaces only) (in_file.c)
+ -Win32: dialog window close (broken layout) under Win11 non-legacy console (re-initing ui after dialog close) (textwin.c)
+ -more stable handling (closing) of file handler dialogs (F[n] keys) (textwin.c, diskfile.c, fileinfo.c, savelist.c)
+ -more stable closing of file handler dialogs (F[n] keys) (textwin.c, diskfile.c, fileinfo.c, savelist.c)
+ -create ID3 from filename: better handling of filenames with non "artist - title" format (like pictures) (chkentry.c)
+ -loading ID3 tags: artist/title infos are not pasted from other side, if the ID3-tag was created from filename there (chkentry.c)
+ -F3: better file info dialog handling (eg. at changing editorside with tab or at skip file), text items optimizations (diskfile.c)
+ -F4: editing tags of multiply files: the artist and title are discarded from common settings (common settings are loaded automatically from any entry in the list, which already has proper ID3 tags) (fileinfo.c)
+ -F4: corrected editing of last index entry length/endtime (if new length/endtime is more than the rest/complete song) (fileinfo.c)
+ -ctrl-'e': corrected too short cut of artist and title (60 -> 120 chars) (diskfile.c)
+ -ctrl-'e': a single filename is given, if there's no artist, and there's no title or tracknum or the ID3 was created from filename (diskfile.c)
+ -file rename (ctrl-'e' or alt-F6): proper playlist entries update, if the ID3-tag was created from filename (diskfile.c)
+ -ctrl-'r': reload of large playlist (subdir scan) (possible crash at standing at the end of list) (playlist.c)
+ -alt-F6: Move and Rename are displayed separated ('Rename' if a file is moved to the same directory) (diskfile.c)
+ -ID3-search: exclude path(es) from search in filename(s) (keyctrl.c)
+ -ID3-search: clear search/filter string, if it's invalid/obsolete (if non-filtered id3-search is enabled or string has not found) (keyctrl.c)
+ -ctrl-'r': set properly editorhighline after reseting ID3-search filtering (first pressing of ctrl-'r' resets the filtering only, not reloading the dir/file content) (playlist.c)
+ -alt-F5: don't prepare/rename filename from/by metadata at single file copy (diskfile.c)
+ -'m': increased mute duration (initial: ~0.4 to 0.8 sec) to avoid pops (on/off/on switching while pushing the button), corrected switching from ctrl-'m' to 'm' mode (without pop) (mx_volum.c)
+
+-----------------------------------------------------------------------------------
+diffs between v1.66 and v1.65
+-modifications/new:
+ -FFmpeg version (Win32):
+  -updated FFmpeg library from 4.3.1 to 4.4.0
+  -corrected WinXp support (FFmpeg is built without w32threads)
+  -demultiplexing error and event handling (at stop, eof) (ffmpdemux.c, in_ffmpg.c)
+  -crash if stream has not found in the file (ffmpstrm.c)
+  -DVB: durations of programs if database is not up to date (no valid events) (using fix/fake 1 sec) (drv_dtv.c)
+ -Win32: added https protocol support (only simple A/V streams, not YT) (note: SSL support requires OpenSSL DLLs) (drv_http.c, tcpcommon.c)
+ -Win32: added support for OpenSSL 1.1.x DLLs (libssl-1_1[-x64].dll) besides the old OpenSSL 1.0.x DLLs (ssleay32.dll) (tcpcommon.c, dll_load.c)
+ -Win32: trying to play https streams as simple http, if https access fails (eg: no OpenSSL dlls) (drv_http.c)
+ -next file selection (ctrl-enter) is saved and restored by mpxtabs.ini (startup.c, mpxplay.c, playlist.c)
+ -startup has a more precise play-status restoring (after exit from stop mode) (mpxplay.c)
+ -http/dvb: streams are not (re)open at program (re)start or at skip in pause/stop mode (just selected as new/next file) (mpxplay.c, diskdriv.c, drv_dtv.c, drv_http.c)
+ -DOS: added new PCI ids to Intel HDA soundcard driver (Intel CometLake/Alderlake chips) (sc_inthd.c)
+-bugfixes/modifications/general:
+ -OGG: corrected metadata reading at large contents (eg: album art picture), editing of such OGG files is rejected (unsupported yet) (in_ogg.c, tagging.c)
+ -OGG/Vorbis: close (dealloc) of incorrect streams (info.c, sharbook.c)
+ -APE: decoder fixes to avoid crash at some files (unbitnew.c)
+ -MKV: automatically ignore/skip unknown stream formats (select/play the supported one) at multiply audio streams (ff_mkv.c)
+ -CDW (CD-A): added 10 sec timeout for read (to not drop read too early at CD spin up), better directory (CDW filelist) loading at FFmpeg, improved play stability (drv_cd.c)
+ -more stable commander dialogs (eg: F3 + skip + ESC + playstart) (diskfile.c)
+ -index editing (F4): additional range check (limit range to start of prev, end of next index entries) (fileinfo.c)
+ -empty config strings loading (not reloading default values after clearing string-type config fields) (control.c)
+ -buffer block size init at playing (starting with non enter key) (mpxinbuf.c)
+ -ftp[es]: improved functionality and stability (drv_ftp.c, tcpcommon.c, dll_load.c)
+ -termination (with ESC) of textfile load and (ssl) connection retry (diskdriv.c, tcpcommon.c)
+ -Win32: network name handling (slow program start at long volume name(s), if network drive became disconnected) (loaddir.c)
+ -Win32: removed high priority process wait (waiting for decoder prebuffer) from commander functions (can cause more problems than solves) (diskfile.c)
+
+-----------------------------------------------------------------------------------
+diffs between v1.65 and v1.64
+-modifications/new:
+ -FFmpeg version (Win32):
+  -added DVB (audio) playing (can be open/control from FTP-connections (Ctrl-'F') as a virtual drive) (drv_dtv.c, dtvdbase.c, dtv_bda.cpp)
+  -added DVBEPGCtrl, AudioLanguage and PreferAudios options to mpxplay.ini
+  -updated FFmpeg library from 4.2.1 to 4.3.1
+  -updated/corrected file extension list (displayed in the directory broswer) (in_fmpeg.c)
+  -corrected auto MPEG-TS program change at multiplexed streams (ffmpdmux.c)
+ -added SoundcardCfg option to mpxplay.ini (equals to -scc option)
+ -spectrum analyzer size changes, if horizontal resolution changes (buttons are always on the right side, analyzer fills the space) (display.c)
+ -Win32: program partially can react to console window size changes (maybe under the latest Win10 only) (mouse.c, display.c)
+ -DOS: added new PCI ids to Intel HDA soundcard driver (latest Intel and AMD codecs) (sc_inthd.c)
+-bugfixes/modifications/general:
+ -ICEcast data download (data without eol), better eof detection, better progress indicator (drv_ice.c)
+ -window close of file handler dialogs (eg. copy/move/view) (possible crash) (diskfile.c)
+ -single file info displaying (F3 key) (diskfile.c)
+ -MP4 metadata tag editing (F4 key) (crash after saving tags) (in_mp4.c)
+ -possible buffer overflow (crash) at directory/filename reading (diskdriv.c, playlist.c)
+ -extM3U load/save without artist&title (loadlist.c, savelist.c)
+ -workaround at saving and restoring huge playlist at fast program restart (to not open the new instance with empty lists, using the previous status instead) (startup.c)
+ -http stream record (alt-F5) with CUE listfile creation: more precise index positions at VBR streams (diskfile.c)
+ -http: chunked data handling (false eof) (drv_http.c)
+ -http: updated mime types (detection of more a/v formats) (drv_http.c)
+ -extended character conversion functions (textconv.c)
+
+-----------------------------------------------------------------------------------
+diffs between v1.64 and v1.63
+-modifications/new:
+ -FFmpeg version:
+  -updated FFmpeg library from 3.3.9 to 4.2.1
+  -runtime audio stream frequency change handling (with software freq conversion) (au_mixer.c)
+ -DOS: added new PCI ids to Intel HDA soundcard driver (latest Intel and AMD codecs) (sc_inthd.c)
+-bugfixes/modifications/general:
+ -http: convert %HH (%hexa) strings to single chars in URL addresses (drv_http.c, string.c)
+ -ftp: better handling of directory entry names in MLSD mode (drv_ftp.c)
+
+-----------------------------------------------------------------------------------
+diffs between v1.63 and v1.62
+-modifications/new:
+ -added minimalist XSPF playlist file loading (filenames only) (loadlist.c)
+ -increased max number of audio channels to 11 (in_file.h)
+ -DOS: added new PCI ids to Intel HDA soundcard driver (sc_inthd.c)
+-bugfixes/modifications:
+ -corrected ASX playlist file loading (loadlist.c)
+ -http: reduced/removed unneccessary delay at redirected urls (faster connection) (drv_http.c)
+ -wrong ID3 info displaying after artist/title change (scrolling has stopped, possible possible buffer overflow) (eg: updated from http metadata) (display.c -> display_id3infos)
+ -possible buffer overflow at displaying header informations (display.c -> display_fileinfos)
+ -corrected editor update at file copy from playlist "with Subdirs" (went wrong in v1.62) (diskfile.c)
+ -possible crash at exit (timer functions deallocation) (timer.c)
+ -WIN: console input (keyboard/mouse) handling (Win10, mouse wheel) (mouse.c)
+
+-----------------------------------------------------------------------------------
+diffs between v1.62 and v1.61
+-bugfixes/modifications:
+ -added "Open new output file", "Add timestamp" and "Save into a CUE" switches to stream copy start window (diskfile.c)
+ -indexed headerless streams (MP3,AAC,AC3,DTS,TS) can be byte-split (not frame!) by ALT-F5 (copy the index into new file) (note: all files are split, but output can be incorrect) (diskfile.c)
+ -added Elapsed time to Stream copy window (diskfile.c)
+ -added Pause and Cancel buttons to file copy/move window (diskfile.c)
+ -reduced default LoudnessBass from 140 to 130 (fx_tone.c, mpxplay.ini)
+ -added new PCI ids to Intel HDA soundcard driver (sc_inthd.c)
+-bugfixes/modifications:
+ -Vorbis audio in MP4 container (in_mp4.c, mpxplay.h)
+ -http redirection (ERR303) handling (content filesize clear) (drv_http.c)
+ -http to https redirection caused program crash (now the open simply fails) (drv_http.c)
+ -http reconnect handling (once it's connected, reconnect retry is longer) (drv_http.c)
+ -missing [LIST] and <DIR> descriptor at file-copying playlist/dir (diskfile.c, loadlist.c)
+ -file info window (F3) didn't follow properly manual playlist skips (+/-) (auto-skip/eof is not followed) (diskfile.c)
+ -file copy/move/del: "Waiting for the higher priority processes" could crash the program (diskfile.c)
+ -file copy/move: wrong number of total files calculation (diskfile.c)
+ -ICE list download, if filesize is missing (drv_ice.c, drv_http.c, tcpcommon.c, diskdriv.c)
+ -various fixes for better program stability (mpxplay.c/frp-flipflop)
