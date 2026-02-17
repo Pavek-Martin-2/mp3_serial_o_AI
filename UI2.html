@@ -1,0 +1,543 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1250"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.2.2.2 (Windows)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="00:00:00"/>
+	<style type="text/css">
+		@page { size: 21.59cm 27.94cm; margin-left: 3.18cm; margin-right: 3.18cm; margin-top: 2.54cm; margin-bottom: 2.54cm }
+		p { line-height: 115%; margin-bottom: 0.25cm; background: transparent }
+	</style>
+</head>
+<body lang="cs-CZ" link="#000080" vlink="#800000" dir="ltr"><p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Genetické
+algoritmy a diferenciální evoluce</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Po
+malé exkurzi do problematiky neuronových sítí v minulém čísle Chipu
+se dnes pustíme do další kapitoly umělé inteligence, vědního oboru,
+který možná v příštím století ovlivní budoucnost lidstva víc, než si
+dnes vůbec dokážeme představit.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Umělá
+inteligence: hrozba, či naděje? (2)</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Určitě
+není náhodou, že se vědci na své cestě za umělou inteligencí obracejí
+pro poučení k živé přírodě. Jak jsme viděli minule, je tomu tak v
+případě neuronových sítí a &ndash; jak uvidíme dále &ndash; také
+nejrůznější teorie týkající se evoluce umělých systémů vycházejí z
+nejmodernějších poznatků biologů o vývoji živých organismů. Zdroj
+inspirace ostatně prozrazují i názvy zmíněných disciplín, o nichž si
+něco povíme v tomto článku: genetické algoritmy a diferenciální
+evoluce.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Historie</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Genetické
+algoritmy byly odvozeny na základě biologické genetiky a Darwinovy
+teorie evoluce, ovlivňující vývoj všeho živého na této planetě. Při
+matematickém vyjádření principů genetického křížení se také přihlédlo
+k již existující terminologii v oblasti biologické genetiky, což
+vedlo a vede k používání biologických termínů v počítačové vědě,
+která se na první pohled jeví být velmi vzdálena vlastní genetice.
+Tak se stalo, že se dnes v počítačovém světě můžeme setkat i s
+takovýmito &ldquo;cizorodými&rdquo; výrazy:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Chromozom
+&ndash; v přírodě je to část molekuly DNA, která je stočena do
+záhybů. V PC aplikacích jde o vektor popisující jeden či více
+parametrů problému, který má být řešen.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Geny
+jsou jednotlivé části chromozomu. Kompletní genetický popis organismu
+je tzv. genotyp. V souvislosti s genotypem se ještě uvádí i tzv.
+fenotyp, který je v podstatě fyzickým popisem genotypu. V počítačové
+interpretaci potom například binárnímu vyjádření genotypu 0101
+odpovídá jako fenotyp jeho dekadická hodnota, tedy 5. </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Alela
+&ndash; obecné označení pro množinu jistých hodnot, kterých mohou
+geny nabývat. </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Prvopočátky
+genetických algoritmů sahají teprve do sedmdesátých let tohoto
+století, kdy se výzkumník J. Holland rozhodl využít výhody genetické
+dědičnosti v technických aplikacích. Až díky jemu a skupině jeho
+studentů vešla problematika genetických algoritmů ve známost.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Na
+dalším šíření se pak podíleli např. D. E. Goldberg, L. Davis a jiní.
+V dnešní době je používání genetických algoritmů poměrně rozšířené v
+mnoha oblastech vědy a techniky, například pro výpočet optimálního
+tvaru některých částí letadla, navrhování optimální struktury
+neuronové sítě, určování trajektorie &ldquo;končetin&rdquo; robota
+ap.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Genetické
+algoritmy se řadí díky své podstatě do třídy tzv. evolučních
+algoritmů &ndash; dnes už spolu s tzv. diferenciální evolucí, což je
+v této oblasti novinka. Diferenciální evoluce (na vývoji a ověření
+tohoto algoritmu pracují také autoři tohoto příspěvku) má v porovnání
+s genetickými algoritmy další výhodu v tom, že dokáže vyřešit daný
+problém mnohem rychleji a přesněji, a navíc může pracovat s
+libovolným typem čísla (integer, float, binary) nebo jejich
+kombinacemi, což u genetických algoritmů přináší jisté problémy.
+Vzhledem k tomu, že struktura algoritmu diferenciální evoluce je dost
+podobná genetickým algoritmům, uvedeme zde jen příklad jejího použití
+(v závěru článku).</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Principy</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">V
+přírodě hraje genetika důležitou roli. Při rozmnožování člověka musí
+mít potomek 46 chromozomů. Od každého z rodičů dostane polovinu &ndash;
+výsledná kombinace pak určuje pohlaví a ostatní vlastnosti. Potomek
+sdílí po svých rodičích genovou výbavu a s tím částečně i jejich
+schopnosti. Vzhledem k tomu, že v přírodě přežívají jen ti
+nejschopnější, umírají nevyhovující jedinci velmi rychle, dříve než
+stačí předat nevyhovující genetickou výbavu svým potomkům.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Zde
+je ovšem na místě podotknout, že jejich výbava byla nevýhodná jen pro
+aktuální okolní prostředí a v jiném prostředí by mohli být úspěšní.
+Vezměme si např. různé druhy vyhynulých pravěkých zvířat, která
+zmizela jen proto, že se nestačila přizpůsobit okolním podmínkám.
+Kdyby se podmínky nezměnily, asi by žila dodnes.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Kritériem
+pro přežití druhu je mimo jiné také to, zda se jedná o rozmnožování
+bezpohlavní či pohlavní (i s tím se setkáme v genetických algoritmech
+v počítačovém prostředí). Na první pohled by se mohlo zdát, že
+bezpohlavní rozmnožování je jednodušší a méně náročné. Při pohlavním
+rozmnožování totiž musí jedinci daného druhu vynaložit hodně energie
+na to, aby našli vhodného partnera a obstáli v konkurenci ostatních
+(to jistě i my lidé můžeme potvrdit), což činí tento způsob na první
+pohled náročným a nevhodným. Jak je tedy možné, že je na světě
+rozšířeno převážně pohlavní rozmnonožování?</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Odpověď
+je jednoduchá. Představte si, že ve stejném životním prostředí
+existují dva druhy (A a B), přičemž A se rozmnožuje nepohlavně
+(dělením) a B pohlavně. V případě A dostane nový jedinec kompletní
+genetickou kopii od svého rodiče i s případnou mutací. V případě B je
+zapotřebí ke vzniku nového jedince dvou rodičů. Každý z nich mu předá
+pouze část své genetické výbavy (je to ovlivněno způsobem dělení
+genů), díky čemuž se potomek od rodičů liší. Takto vzniklý jedinec
+dokáže díky nové genetické výbavě lépe vzdorovat okolním podmínkám,
+což může po dlouhé době vést ke kvalitativním skokům ve srovnání s
+druhem A (který pak bude druhem B nejspíš  vytlačen).</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Na
+stejném principu jako náš druh B pracují i genetické algoritmy v
+počítačových aplikacích. Náhodně se vygeneruje množina chromozomů, z
+níž se vybírají dvojice (rodiče) na základě toho, jak dobře splňují
+tzv. kriteriální funkci. Potomci jsou tvořeni &ldquo;polovinou&rdquo;
+z každého rodiče a nahrazují své rodiče. Stejně jako v přírodě, tak i
+v technických aplikacích hrají důležitou roli náhodné změny &ndash;
+mutace. To se v technice obvykle řeší pomocí generátoru náhodných
+čísel.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Při
+používání genetických algoritmů v technických aplikacích se setkáme
+ještě s dalšími pojmy, např.: </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Objektivní
+funkce &ndash; je to funkce, kterou chceme minimalizovat (v případě
+neuronových sítí je to globální chyba sítě atd.).</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Vhodnost
+&ndash; číslo, které udává vhodnost nového potomka z hlediska
+kriteriální funkce. Představuje v podstatě matematický popis
+životního prostředí daného jedince (obvykle to bývá převrácená
+hodnota objektivní funkce &ndash; čím je větší, tím je potomek
+vhodnější pro dané okolní podmínky). </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Schéma
+&ndash; množina genů v chromozomu, které mají jisté specifické
+hodnoty. V &ldquo;neuronových&rdquo; aplikacích se takováto množina
+chápe jako skupina genů, která je schopna se za určitých podmínek
+chovat &ldquo;jako jeden muž&rdquo; a vytvořit žádaný efekt. </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Obsah
+genu je variabilní. Nejjednodušší je, známe-li obsah genu v binární
+podobě, např. 01011101, avšak lze použít i dekadický tvar. </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Genetický
+algoritmus</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Vlastní
+algoritmus genetické optimalizace je cyklus, v němž se vytvářejí noví
+potomci, kteří se použijí jako rodiče v dalším cyklu. Po každém cyklu
+se vyhodnocuje vhodnost potomka a na základě toho se buď pokračuje v
+hodnocení, nebo se končí. Podobně jako u neuronových sítí, kde se
+cyklus nazývá epocha, má i zde výše zmíněný cyklus svůj název, a to
+(jak se dalo očekávat) generace. Vlastní cyklus neboli schéma
+genetického algoritmu se skládá z těchto kroků:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">1.
+navržení genetické struktury</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">2.
+inicializace</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">3.
+ohodnocení</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">	3.1.
+konverze genotypu na fenotyp</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">	3.2.
+ohodnocení objektivní funkce</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">	3.3.
+konverze objektivní funkce na vhodnost</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">	3.4.
+konverze vhodnosti na selekci rodičů</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">4.
+volba rodičů</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">5.
+reprodukce</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">6.
+mutace</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">7.
+zpět na 3.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Popišme
+si nyní jednotlivé kroky tohoto algoritmu podrobněji:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Navržení
+genetické struktury</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Při
+návrhu genetické struktury je důležité, jak budou reprezentovány
+jednotlivé alely a jak budou v jednotlivých chromozomech rozmístěny
+(reprezentace alel a jejich rozmístění ovlivňují výkonnost
+příslušného algoritmu). </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Při
+reprezentaci se obvykle vychází ze dvou možností. První je vyjádření
+pomocí binárních hodnot, což je dost rozšířený přístup. Pak je
+chromozom tvořen řetězem alel a fenotyp je počítán jako dekadická
+hodnota binárního genu &ndash; řetězce. Tento přístup má mimo jiné
+dvě výhody. Jednak je binární kódování vlastní všem PC, a algoritmy
+jsou tudíž poněkud jednodušší, jednak jsou teorémy, které pojednávají
+o různých algoritmech, lépe dokazatelné.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">V
+případě použití dekadických číslic je to trochu složitější. Lze
+použít různé přístupy &ndash; např. že každá alela bude nabývat jen
+dekadických parametrů. </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Další
+nezanedbatelnou věcí je pozice genů v chromozomu. Standardní metoda
+dělení chromozomů (ne vždy používaná, jak uvidíme později) je dělení
+na dvě poloviny, z nichž každá se daruje jednomu potomku. Pokud jsou
+geny zastupující důležité kooperující parametry, daleko od sebe,
+dochází při jejich dělení k znehodnocení jejich celkové účinnosti.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Představme
+si, že oba rodiče mají geny, jejichž struktura popisuje &ldquo;chytrost&rdquo;.
+Ty jsou v chromozomu rozházeny a při jejich dělení půl na půl může
+dojít k jejich odtržení, a tak výsledkem jsou průměrně chytří
+potomci. Pokud by však byly geny blízko sebe, pak by mohl jeden
+potomek obdržet &ldquo;chytré&rdquo; geny a druhý bohužel jen ten
+zbytek. Měli bychom pak dva potomky, jeden by byl asi geniální a ten
+druhý hloupoučký, což je základním principem přirozeného výběru druhů
+&ndash; chytrý přežije a hloupý zahyne (alespoň v přírodě to tak
+platí). Je tedy určitě vhodné umístit důležité geny tak, aby
+pravděpodobnost jejich rozdělení byla co nejmenší.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Inicializace</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">To
+je v podstatě primitivní proces, který náhodným způsobem (pomocí
+generátoru náhodných čísel) založí populaci prvotních rodičů.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Ohodnocení</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">V
+tomto kroku se postupně provedou následující operace:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Konverze
+genotypu na fenotyp je pouhý přepočet, např. při použití binárních
+genů na dekadickou hodnotu (máme-li chromozom 00001100, jeho fenotyp
+je 12).</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Ohodnocení
+objektivní funkce &ndash; zde se počítá výsledek objektivní funkce (v
+případě neuronových sítí chyba za jednu epochu). Obvykle se
+předpokládá, že daná funkce je ovlivňována všemi geny zhruba stejně
+významně. Pokud by se vyskytl nějaký gen či skupina genů s vysokou
+&ldquo;prioritou&rdquo; ovlivňování, pak by genetický algoritmus měl
+horší výkonnost. </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Konverze
+objektivní funkce na vhodnost se skládá ze dvou operací. Objektivní
+funkci musíme nejprve zkonvertovat na tzv. hrubou vhodnost (ta se dá
+počítat mnoha způsoby). Takto získanou hrubou vhodnost musíme ještě
+zkonvertovat na tzv. jemnou vhodnost, a to z následujícího důvodu:
+Pokud bychom použili jen hrubou vhodnost, z prvotní vygenerované
+populace by vyšli jako vítězové jen ti potomci, jejichž vhodnost
+významně převyšuje vhodnost ostatních, a tak by došlo k tvorbě pouze
+silných potomků. To však v konečném důsledku znamená konec
+přirozeného výběru, protože by pak nebylo z čeho vybírat...</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Úpravou
+hrubé vhodnosti na jemnou se dosáhne toho, že příliš &ldquo;schopným&rdquo;
+jedincům je vhodnost snížena, zatímco průměrné hodnoty zůstávají
+nedotčeny.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Konverze
+vhodnosti na selekci rodičů pak (číselnou hodnotou) určí, který
+jedinec (a kolikrát) bude vybrán k vytvoření potomka.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Volba
+rodičů</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Jakmile
+provedeme selekci rodičů, můžeme přistoupit k jejich výběru. V
+dřevních dobách genetických algoritmů se tento problém řešil tak, že
+se vytvořila &ldquo;ruleta&rdquo; s pozicemi, jejichž
+pravděpodobnosti byly úměrné vhodnosti, a pak se přistoupilo k
+náhodnému výběru. Vzhledem k příliš velké roli náhody však docházelo
+k degradaci účinnosti vlastního genetického algoritmu.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Mnohem
+lepší přístup je proto vytvořit pole, které se nejprve zaplňuje
+rodiči s nejvyšší selekcí (jedinci se selekcí 3 budou ve 3
+políčkách), poté rodiči s menší selekcí atd. až po jedince se selekcí
+menší než 1, kteří se do pole vybírají náhodně. Z tohoto pole se pak
+budou v dalším kroku vytvářet noví potomci &ndash; budoucí rodiče.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Reprodukce</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Při
+reprodukci konečně dochází k dělení rodičovských chromozomů a
+vytváření potomků jejich spojením. Jednoduše řečeno, každý rodič se
+na tom zúčastní polovinu své genetické výbavy. Jak už bylo dříve
+řečeno, je dobré mít skupiny vhodných genů pohromadě a tím snížit
+pravděpodobnost jejich rozdělení. Ta se snižuje také tak, že se
+náhodně vygeneruje pozice &ldquo;přestřihnutí&rdquo; chromozomu. Od
+této pozice se v případě dělení půl na půl odečte na každou stranu
+stejný počet genů tak, jako by genový řetězec byl uzavřený prsten.
+Tuto metodu se doporučuje ještě střídavě kombinovat s dělením na
+třetiny.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Mutace</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Mutace
+jsou nezbytnou součástí genetických algoritmů. Díky jim lze mnohdy
+najít nové jedince, kteří lépe vyhovují okolním podmínkám, a tak
+zkvalitnit jak genetický proces, tak množinu jedinců &ndash;
+budoucích rodičů. Volba míry a pravděpodobnosti mutace genů je velmi
+ošemetný problém, který při necitlivém řešení může způsobit i
+katastrofu v genetické množině.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">V
+podstatě se dají zvolit dvě základní cesty, jak k mutaci přistupovat.
+První cestou jsou mutace s malým účinkem, ale s vysokou četností
+výskytu. Vzhledem k tomu, že tento typ mutací přináší zpravidla menší
+změny, než jaké jsou požadovány (je potřeba nový materiál v genetické
+množině), je tento přístup nevhodný. Aby byl vliv mutací na průběh
+genetického algoritmu výrazný, je potřeba volit menší četnost jejich
+výskytu, ale s větším účinkem (druhá metoda). </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Vlastní
+mutace se provádí v cyklu pomocí generátoru náhodných čísel tak, že
+se náhodné číslo porovnává s požadovanou četností výskytu mutací.
+Pokud je náhodné číslo menší, pak dojde k mutaci genu (součin již
+vygenerovaného náhodného čísla a dalšího náhodného čísla se přičte k
+již existujícímu genu &ndash; gen zmutuje). To lze samozřejmě dále
+modifikovat. </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Povšimněme
+si, že genetické algoritmy souvisejí s neuronovými sítěmi &ndash; a
+to prostřednictvím jejich vah. Každý spoj má svou váhu (alelu),
+přičemž za geny lze považovat vektory vah vstupujících do každého
+neuronu. Při použití genetických algoritmů pro optimální start
+neuronové sítě jde o vytvoření chromozomů (náhodné nastavení vah, lze
+použít také simulované &ldquo;žíhání&rdquo;) a jejich následné
+&ldquo;šlechtění&rdquo;.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">V
+oblasti genetických algoritmů samozřejmě existuje ještě mnoho dalších
+přístupů k řešení mutací, výběru rodičů atd.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Ukázkové
+příklady</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Pojďme
+však již od šedé teorie k &ldquo;zelenému stromu života&rdquo;. Pokud
+jste si při čtení předchozího textu neustále kladli otázku &ldquo;K
+čemu je to všechno vlastně dobré?&rdquo;, snad vám na ni alespoň
+částečně odpovědí následující příklady.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Hledání
+extrému funkce</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Jako
+příklad použití popsaných postupů uvedeme hledání globálního extrému
+komplikovanější funkce. Výraz globální extrém zní čistě matematicky a
+může budit dojem, že jde o akademický problém, nicméně opak je
+pravdou. S hledáním extrémů funkcí se setkáváme každý den, např. když
+musíme zařídit více věcí na různých místech a snažíme se tato místa
+obejít po nejkratší dráze (problém obchodního cestujícího), když se
+snažíme nalézt nejlepší poměr mezi cenou výrobku a jeho kvalitou atd.
+</font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Pro
+nalezení extrému (v tomto případě globálního) funkce na obr. 2 byl
+použit genetický algoritmus podle výše popsaných pravidel. Červené
+body představují nejlepší nalezenou hodnotu za příslušnou generaci a
+zelený bod tu nejlepší (extrém byl nalezen již ve čtvrté generaci).</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Zde
+je nutno podotknout, že s hledáním extrému na této funkci by klasické
+metody měly problém vzhledem k existenci několika minim a maxim okolo
+hlavního maxima.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Pro
+mnohem komplikovanější funkce, jaké jsou např. na obr. 3, je lepší
+použít diferenciální evoluci, která na takových funkcích vykazuje
+mnohem lepší výsledky. Obě funkce jsou pro názornost počítány pro 3D,
+nicméně je možné použití i pro dimenze 100, 500, 1000. Tak vysoké
+dimenze jsou sice nezobrazitelné, ale jsou dobré pro otestování
+výkonnosti daného algoritmu. </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Optimální
+tloušťka tlakové nádoby</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Diferenciální
+evoluci jsme použili také k vyšlechtění tlakové nádoby podle obr. 4.
+Z tabulky porovnávající výsledky z různých zdrojů (pro nedostatek
+místa ji přetiskujeme bez vysvětlivek) plyne, že diferenciální
+evoluce byla nejúspěšnější.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Evoluční
+algoritmy lze však použít ještě daleko šířeji, prakticky k řešení
+každého problému &ndash; problémem obchodního cestujícího počínaje,
+přes např. identifikaci parametrů pro výpočet korelační dimenze
+(používá se při rekonstrukci chaotického atraktoru) a nalezením
+optimální struktury neuronové sítě konče.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Jouni
+Lampinen (Jouni.Lampinen@UWasa.Fi),</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Ivan
+Zelinka (Zelinka@zlin.vutbr.cz)</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Jouni
+Lampinen pracuje na University of Vaasa (Dept. of Information
+Technology) ve Finsku.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Ing.
+Ivan Zelinka je doktorandem na katedře automatizace FT VUT ve Zlíně.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Autor:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Jouni
+Lampinen; Ivan Zelinka</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Rubrika:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Magazín</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Vydání:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">729786
+- 729813</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+</body>
+</html>

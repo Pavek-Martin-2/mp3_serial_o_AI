@@ -1,0 +1,39 @@
+17.02.2026 
+06:20
+Folder PATH listing for volume KNIHOVNA
+Volume serial number is B85E-F5AB
+E:.
+|   AI_1.mp3
+|   AI_2.mp3
+|   AI_3.mp3
+|   image.jpg
+|   image_2.jpg
+|   libcrypto-1_1.dll
+|   libssl-1_1.dll
+|   mpxplay.exe
+|   MPXPLAY.INI
+|   playlist.m3u
+|   sleep.exe
+|   UI.html
+|   UI.pdf
+|   UI2.html
+|   UI2.pdf
+|   UI3.html
+|   UI3.pdf
+|   _SPUST_ME.bat
+|   _SPUST_ME_2.bat
+|   _TREE.bat
+|   _TREE_folder_mp3_serial_o_AI.txt
+|   
+\---DOCS
+        FILE_ID.DIZ
+        grab_cd.bat
+        help.txt
+        KEYCODES.LST
+        MOREINFO.TXT
+        README.TXT
+        README.WIN
+        SNDCARDS.TXT
+        WHATSNEW.1XX
+        WHATSNEW.TXT
+        

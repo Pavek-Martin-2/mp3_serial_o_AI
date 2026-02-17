@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=windows-1250"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.2.2.2 (Windows)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="00:00:00"/>
+	<style type="text/css">
+		@page { size: 21.59cm 27.94cm; margin-left: 3.18cm; margin-right: 3.18cm; margin-top: 2.54cm; margin-bottom: 2.54cm }
+		p { line-height: 115%; margin-bottom: 0.25cm; background: transparent }
+	</style>
+</head>
+<body lang="cs-CZ" link="#000080" vlink="#800000" dir="ltr"><p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Fuzzy
+logika a počítačové vidění</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Pokud
+jste v našem seriálu dosud postrádali slibované zmínky o principech
+používaných při konstrukci &ldquo;umělých bytostí&rdquo; a těšili
+jste se, že alespoň částečně nahlédnete do mozku třeba Terminátora,
+nebo raději sympatičtějšího &ldquo;Čísla 5&rdquo;, tentokrát se
+dočkáte.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Umělá
+inteligence &ndash; hrozba, či naděje? (3)</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Tento
+citát snad nejlépe vystihuje potíže, s nimiž se potýkají odvážlivci
+snažící se napodobit zázrak života neohrabanými prostředky současné
+matematiky, techniky a přírodních věd vůbec. Pustili se do ohromného
+problému a přiznejme jim, že první krůčky na předlouhé cestě už
+učinili. Důkazem jsou i disciplíny, o nichž se zmíníme v tomto
+příspěvku.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Fuzzy
+logika</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Fuzzy
+logika je jednou z mnoha dalších částí umělé inteligence. Její vznik
+lze datovat do roku 1965, kdy elektrotechnik a regulační technik L.
+Zadeh publikoval svůj první článek s názvem Fuzzy sets (v překladu
+snad nejlépe neostré množiny, v češtině se však už ujal původní
+anglický termín). K vytvoření základů teorie fuzzy množin ho vedla
+snaha umět vhodně popsat komplikované systémy a tento popis jednoduše
+využít v praxi. V 19. století byly přírodní zákony chápány dost
+rigidním způsobem &ndash; na rozdíl od století našeho, kdy se pomocí
+obecné teorie systémů začalo nahlížet na přírodní zákony jako na
+systémy postavené na objektech reálného světa s určitou
+časoprostorovou rozlišovací úrovní.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Zatímco
+u systémů, jakými jsou různé &ldquo;klasické&rdquo; elektrotechnické
+obvody či fyzikální soustavy, stačí rigidní přístup poplatný minulému
+století, u jevů a systémů typu biologického, ekonomického či
+ekologického se brzy ukázala potřeba nového přístupu. Nedostatečná
+formalizace těchto systémů není dána jen možným nedostatkem
+informací, ale také tím (jak již řekl Aristoteles), že &ldquo;systém
+je víc nežli pouhý souhrn jeho částí&rdquo;. To znamená, že u
+složitých systémů, u kterých se výrazně uplatňují jejich holistické
+vlastnosti a synergismus, mnohdy nelze oddělit pozorovatele od
+pozorovaného jevu (typickým příkladem je Heisenbergův princip
+neurčitosti z kvantové fyziky). To vedlo k formulování principu
+inkompatibility, který v podstatě říká totéž, co výše zmíněný
+Einsteinův citát. Kdybychom na tento princip aplikovali řeč fuzzy
+množin, vyjádřili bychom jej asi takto: &ldquo;Čím blíže je příslušný
+problém reálnému světu, tím více fuzzy (neostré) se stává jeho
+řešení.&rdquo;</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Co
+to tedy vlastně je fuzzy logika? Klasická logika, která pochází z dob
+antického Řecka, je známá v podstatě každému. Pracuje na principu
+dvou ostrých protipólů, jimiž se vyjadřuje příslušnost do jedné ze
+dvou základních tříd: pravda &ndash; nepravda, ano &ndash; ne, černá
+&ndash; bílá, špatný &ndash; dobrý atd. Po dlouhá staletí byla (a
+také v podstatě pořád je) považována za jediný druh logiky i přesto,
+že někdy produkovala prapodivné paradoxy. Jako příklad lze uvést
+známý výrok Kréťana Epimenidese &ldquo;Všichni Kréťané jsou lháři&rdquo;.
+Vzhledem k tomu, že on sám je Kréťan, vyvstává poněkud zašmodrchaná
+otázka, zda tento výrok je pravdivý, či nikoli.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">V
+tomto století vznikla tzv. Lvovsko-varšavská škola, která dala světu
+tzv. vícehodnotovou logiku, v níž by se, zjednodušeně řečeno, mohla
+ohodnotit výše zmíněná tvrzení ne pouze známkou 1 (pravda), nebo 0
+(nepravda), ale např. 1/2 (což je z hlediska antické logiky nesmysl).</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">To
+vše pak vytvořilo vhodné podhoubí pro L. Zadeha a jeho fuzzy množiny.
+Ten přišel s tím, že zatímco u normálních množin, jejichž funkce
+příslušnosti m přiřazuje prvkům pouze hodnoty 0 (nepatří do množiny)
+a 1 (patří), u fuzzy množin může zmíněná funkce nabývat mnoha hodnot
+a vyjádřit tak např. skutečnost, že daný prvek patří do množiny
+úplně, více, středně, méně,&hellip; To dalo nejen matematikům,
+vědcům, ale i technikům do rukou mocný nástroj pro popis systémů,
+které byly do té doby popsatelné jen s velikými obtížemi, nebo vůbec
+ne (viz též Chip 7/97, str. 104). </font></font></font>
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Jako
+příklad se často uvádí rozlišení lidí podle stáří. To je dost
+ošemetný problém, který je pomocí dvouhodnotové logiky (0 a 1)
+prakticky neřešitelný. Nejen proto, že pro člověka ve věku 10 roků je
+stařík i ten, jemuž je 20 či 30, zatímco pro lidi ve věku 60 až 70
+jsou čtyřicátníci pořád ještě mládenci. Na závadu je hlavně ona ostrá
+věková hranice, která může v jistém okamžiku například dva v podstatě
+stejně staré někdejší spolužáky poslat do různých kategorií (mladý &ndash;
+starý), ačkoliv třeba z hlediska jejich vitality by byl na místě
+pravý opak. Kam tedy ve dvouhodnotové logice položit hranici, která
+by věkovou množinu jednoznačně rozdělila?</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Pro
+fuzzy logiku to není problém. Ta by tuto množinu rozdělila, řečeno
+lidskou řečí, na mladší, mladé, dospělé, starší,&hellip; Zní to velmi
+jednoduše, viďte? Vždyť takový přístup používá náš mozek každý den.
+Nicméně vlastní matematická teorie, která musela být vybudována, není
+žádná legrace. Musela však být vytvořena proto, aby ji v praktických
+aplikacích mohli používat matematici, technici, ale také ekonomové,
+sociologové atd. A nakonec vzala pod svá křídla i dvouhodnotovou
+logiku, která není nic jiného než okrajový případ fuzzy logiky.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">V
+současné době, kdy už je fuzzy logika většinou uznávána (sem tam se
+ještě nějaký přežívající zkostnatělý odpůrce najde), je na světě již
+mnoho jejích aplikací pocházejících převážně z Japonska (jak jinak!).
+Byly vyvinuty fuzzy procesory, které se používají v nových výrobcích,
+pračkou počínaje a řízením složitých systémů konče. A objevují se i
+nové hybridní procesory, které v sobě zahrnují kombinaci různých
+metod, jako např. neurofuzzy procesory aj. Fuzzy logika dnes nachází
+stále širší uplatnění v mnoha oblastech vědy a lidské činnosti,
+dokonce i v tak neurčitých úlohách, jakými jsou např. ekonomické či
+rozsáhlé ekologické a biologické systémy. U těchto systémů se lze k
+rigoróznímu popisu dostat velmi těžko, ne-li vůbec, což je předurčuje
+právě pro vágní popis pomocí fuzzy logiky.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Ta
+pracuje tak, že hodnoty, se kterými chceme pracovat, se nejprve
+normalizují (tj. převedou se na vhodné univerzum &ndash; množinu) a
+provede se tzv. fuzzifikace (každé hodnotě z univerza se přiřadí
+stupeň příslušnosti). Poté se pomocí jistých fuzzy-logických operací
+a defuzzifikace získá ostrá hodnota, která říká, jak dalece konkrétní
+prvek do dané množiny patří či ne.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Vzhledem
+k tomu, že se podíl teorie řízení a umělé inteligence v běžném životě
+stále více uplatňuje, nezbývá než očekávat nárůst zájmu i o toto
+odvětví a samozřejmě také o příslušné odborníky.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Počítačové
+vidění</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Dalším
+z perspektivních směrů v oblasti umělé inteligence je tzv. počítačové
+vidění. Jak již z názvu plyne, jde o rozeznávání obrazců pomocí
+počítačů. Historie tohoto odvětví je stará jen přibližně jako éra PC.
+Byly však už vypracovány mnohé metody, jimiž se člověk snaží
+napodobit to, co jeho mozek automaticky dělá každou vteřinu. Snímat
+obrazy, analyzovat je, rozdělit je na objekty a provést jejich
+identifikaci co do pohybu a druhu (určit, &ldquo;co je to za
+objekt&rdquo;). Vzhledem k tomu, že člověk je tvor hravý, neomezuje
+se při možnostech dnešní techniky jen na viditelný obor spektra, ale
+může pomocí počítačového vidění teoreticky rozeznávat objekty i v
+jiných spektrálních oborech, nejčastěji v infračerveném atd.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Postup
+při počítačovém vidění lze zhruba dělit do následujících kroků:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">-
+získání digitálního obrazu;</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">-
+úprava;</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">-
+rozložení na objekty;</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">-
+popis objektů;</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">-
+klasifikace jednotlivých objektů.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Získání
+digitálního obrazu je proces, při němž zařízením typu skener či
+videokamera se získá obraz scény a převede se do digitální podoby.
+Tento proces velmi významně ovlivňuje všechny další, neboť na kvalitě
+obrazu záleží, jak budou následující kroky úspěšné. Například pokud
+získáme obraz, v němž nebudou vinou horšího snímacího zařízení
+zachyceny jisté detaily, pak také nebudou nalezeny a zpracovány v
+dalších krocích. To může mít nepříjemný dopad, pokud se jedná např. o
+zařízení zpracovávající špionážní snímky apod.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Úpravou
+rozumíme v podstatě použití různých filtrů a opravných mechanismů k
+odstranění poruch obrazu (různých šumů infiltrovaných do obrazu před
+vstupem do kamery nebo během zpracování). Během tohoto procesu se
+nejen odstraňuje šum, ale také zlepšuje kvalita některých částí
+obrazu, např. vyostřováním hran, potlačením či zvýrazněním některých
+vlastností obrazu pomocí filtrace atd.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Jakmile
+je obraz upraven, je možné provést jeho rozložení na jednotlivé
+objekty. Za tímto účelem bylo vyvinuto několik metod, jako je
+segmentace prahováním (za využití určitých vlastností obrazu se
+zvýrazní některé objekty), segmentace narůstáním oblastí (zde se
+obraz rozčleňuje na homogenní celky; kritérium homogenity může být
+založeno na jasových vlastnostech) a další.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">U
+takto připravených objektů je možné přistoupit k jejich popisu;
+znamená to, že se musí popsat nějakým vhodným a selektivním způsobem,
+který by umožnil jejich jednoznačnou klasifikaci. To lze udělat třeba
+binárním popisem, který se např. na černobílé obrazce dá snadno
+aplikovat tak, že se vytvoří vektor či matice, jejichž prvky jsou 0
+nebo 1 podle toho, zda byl daný pixel bílý, či černý (obr. 1). Z
+tohoto principu je ihned zřejmé, že binární popis produkuje obrovské
+objemy dat, což není žádoucí.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Jinou
+možností je hraniční popis, při němž se hranice objektu &ldquo;rozsekají&rdquo;
+na stejné úseky a jejich orientace se opět zapíše jako vektor čísel,
+z něhož lze bez problému takovýto objekt opět rekonstruovat. Oba
+přístupy mají své nedostatky. Binární produkuje velké objemy dat a
+hraniční není jednoznačný.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Jako
+slibný směr (samozřejmě mimo jiné existující metody) se jeví použití
+fraktální geometrie (v současnosti je vyvíjen na katedře
+automatizační a regulační techniky FT VUT ve Zlíně) na popis a
+následnou klasifikaci. Tento postup zcela vylučuje velké objemy dat i
+nejednoznačnosti plynoucí z hraničního popisu (obr. 2).</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Touto
+metodou lze každý objekt popsat velice úsporně (např. objekt na obr.
+1 pomocí 18 čísel namísto řádově Kb či Mb!), která jej jednoznačně
+určují. Postup funguje tak, že se zjistí koeficienty tzv. afinních
+transformací, které daný objekt generují, a tyto koeficienty se pak
+použijí při klasifikaci tohoto objektu např. pomocí neuronové sítě
+(obr. 3).</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Jak
+současné experimenty ukázaly, jde o přístup velmi výkonný, který
+šetří nejen čas, ale také hardware (a tím i peníze). Navíc umožňuje i
+velmi elegantně řešit popis pohybu těchto objektů (rotace, posunu,
+změny velikosti &ndash; tj. pohybu k pozorovateli nebo od něho).</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Ke
+klasifikaci již popsaných objektů se používají různé metody &ndash;
+klasickými počínaje a moderními (neuronové sítě, fuzzy logika aj.)
+konče. Zde jde v podstatě o to, zjistit, do jaké třídy daný objekt
+patří &ndash; Porsche do třídy automobilů, F16 do třídy letadel atd.
+Na tuto problematiku jsme ostatně narazili už v první části seriálu.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Počítačové
+vidění je jednou z nejdynamičtěji se vyvíjejících oblastí umělé
+inteligence a jeho aplikace lze nalézt v různých průmyslových
+robotech a robotických linkách, v inteligentních robotech, vyvíjených
+dnes jak pro NASA, tak pro armádu, i jinde. V budoucnosti se s nimi
+budeme setkávat i v takových oblastech, jako je řízení aut a letadel,
+při chirurgických operacích a jednou jistě i v domácích robotech,
+kteří nás po příchodu zdvořile pozdraví, naservírují kávu a bez
+otálení se pustí do luxování v předsíni.</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Ivan
+Zelinka (Zelinka@zlin.vutbr.cz)</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Autor:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Ivan
+Zelinka</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Rubrika:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Magazín</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">Vydání:</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<font color="#000000"><font face="Arial"><font size="2" style="font-size: 10pt">729814
+- 729844</font></font></font></p>
+<p lang="en-US" align="left" style="line-height: 0.35cm; margin-bottom: 0cm">
+<br/>
+
+</p>
+</body>
+</html>
